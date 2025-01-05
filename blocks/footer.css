@@ -1,12 +1,12 @@
 .footer {
-  height: 60px;
-  padding: 0 20px;
+  padding: 60px 0;
 }
 
 .footer__copyright {
   display: flex;
   justify-content: center;
-  margin: 60px auto 60px;
+  padding: 60px auto 60px;
+  margin: 0;
   font-weight: 400;
   color: #212121;
   opacity: 70%;
