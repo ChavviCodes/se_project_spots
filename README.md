@@ -22,3 +22,5 @@ This project is made so all the elements are displayed correctly on popular scre
 This webpage is deployed to GitHub Pages
 
 - Deployment Link: https://chavvicodes.github.io/se_project_spots/
+
+- Video Submission Limk: https://drive.google.com/file/d/1w660X-PQjUa4EZBclWO4idDfllFBqmmq/view?usp=drive_link
