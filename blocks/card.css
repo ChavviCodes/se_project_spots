@@ -16,7 +16,7 @@
 .card__title {
   margin: 0;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.2;
   color: #212121;
   text-overflow: ellipsis;
@@ -47,7 +47,7 @@
 
   .card__title {
     max-width: 253px;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 1;
   }
 }
