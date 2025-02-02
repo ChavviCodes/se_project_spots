@@ -31,14 +31,33 @@ const editModal = document.querySelector(`#edit-modal`);
 const profileEditBtn = document.querySelector(`.profile__edit-button`);
 const closeBtn = editModal.querySelector(`.modal__close-btn`);
 
+const profileModalName = editModal.querySelector(`#profile-name-input`);
+const profileModalDescription = editModal.querySelector(`#profile-description-input`);
+const profileName = document.querySelector(`.profile__name`);
+const profileDescription = document.querySelector(`.profile__description`);
+
+const modalSubmitBtn = editModal.querySelector(`.modal__submit-btn`);
+
 function openModal() {
   editModal.classList.add(`modal__opened`);
+profileModalName.value = profileName.textContent;
+profileModalDescription.value = profileDescription.textContent;
 }
 
 function closeModal() {
   editModal.classList.remove(`modal__opened`);
 }
 
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault();
+  profileModalName.value = profileName.textContent;
+  editModal.classList.remove(`modal__opened`);
+  // Working on submit btn... Trying to make the values of the modal'
+  // appear in the profile. WIP
+}
+
 profileEditBtn.addEventListener("click", openModal);
 
 closeBtn.addEventListener("click", closeModal);
+
+modalSubmitBtn.addEventListener("submit", handleProfileFormSubmit);
