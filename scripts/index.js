@@ -69,9 +69,10 @@ function getCardElement(data) {
     cardLikeBtn.classList.toggle(`card__like-button_liked`);
   });
 
-  cardDeleteBtn.addEventListener(`click`, () => {
+  /* cardDeleteBtn.addEventListener(`click`, () => {
     cardsList.remove(cardElement);
-  })
+  }) 
+    WIP add delete card functionality*/ 
 
   return cardElement;
 }
