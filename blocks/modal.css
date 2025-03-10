@@ -13,7 +13,7 @@
   visibility: hidden;
 }
 
-.modal__opened {
+.modal_opened {
   visibility: visible;
 }
 
@@ -24,6 +24,7 @@
   width: 100%;
   position: relative;
   box-sizing: border-box;
+  border-radius: 8px;
 }
 
 .modal__close-btn {
@@ -79,6 +80,7 @@
   background-color: #212121;
   color: #fcf5e5;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 627px) {

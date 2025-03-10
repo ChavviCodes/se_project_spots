@@ -31,33 +31,101 @@ const editModal = document.querySelector(`#edit-modal`);
 const profileEditBtn = document.querySelector(`.profile__edit-button`);
 const closeBtn = editModal.querySelector(`.modal__close-btn`);
 
-const profileModalName = editModal.querySelector(`#profile-name-input`);
-const profileModalDescription = editModal.querySelector(`#profile-description-input`);
 const profileName = document.querySelector(`.profile__name`);
+const editModalNameInput = editModal.querySelector(`#profile-name-input`);
 const profileDescription = document.querySelector(`.profile__description`);
+const editModalDescriptionInput = editModal.querySelector(
+  `#profile-description-input`
+);
 
-const modalSubmitBtn = editModal.querySelector(`.modal__submit-btn`);
+const postModal = document.querySelector(`#add-card-modal`);
+const postBtn = document.querySelector(`.profile__add-button`);
+const postModalCloseBtn = postModal.querySelector(`.modal__close-btn`);
 
-function openModal() {
-  editModal.classList.add(`modal__opened`);
-profileModalName.value = profileName.textContent;
-profileModalDescription.value = profileDescription.textContent;
+const postModalNameInput = postModal.querySelector(`#add-card-name-input`);
+const postModalLinkInput = postModal.querySelector(`#add-card-link-input`);
+
+const editFormElement = editModal.querySelector(`.modal__form`);
+const cardFormElement = postModal.querySelector(`.modal__form`);
+
+const cardTemplate = document.querySelector(`#card-template`);
+const cardsList = document.querySelector(`.cards__list`);
+
+function getCardElement(data) {
+  const cardElement = cardTemplate.content
+    .querySelector(`.card`)
+    .cloneNode(true);
+
+  const cardNameEl = cardElement.querySelector(`.card__title`);
+  const cardImgEl = cardElement.querySelector(`.card__image`);
+  const cardLikeBtn = cardElement.querySelector(`.card__like-button`);
+  const cardDeleteBtn = cardElement.querySelector(`card__delete-button`);
+
+  cardImgEl.src = data.link;
+  cardImgEl.alt = data.name;
+  cardNameEl.textContent = data.name;
+
+  cardLikeBtn.addEventListener(`click`, () => {
+    cardLikeBtn.classList.toggle(`card__like-button_liked`);
+  });
+
+  cardDeleteBtn.addEventListener(`click`, () => {
+    cardsList.remove(cardElement);
+  })
+
+  return cardElement;
 }
 
-function closeModal() {
-  editModal.classList.remove(`modal__opened`);
+function openModal(modal) {
+  modal.classList.add(`modal_opened`);
 }
 
-function handleProfileFormSubmit(evt) {
+function closeModal(modal) {
+  modal.classList.remove(`modal_opened`);
+}
+
+function handleEditFormSubmit(evt) {
   evt.preventDefault();
-  profileModalName.value = profileName.textContent;
-  editModal.classList.remove(`modal__opened`);
-  // Working on submit btn... Trying to make the values of the modal'
-  // appear in the profile. WIP
+  profileName.textContent = editModalNameInput.value;
+  profileDescription.textContent = editModalDescriptionInput.value;
+  closeModal(editModal);
 }
 
-profileEditBtn.addEventListener("click", openModal);
+function handleAddCardSubmit(evt) {
+  evt.preventDefault();
+  const inputValues = {
+    name: postModalNameInput.value,
+    link: postModalLinkInput.value,
+    alt: postModalNameInput.value,
+  };
+  const cardElement = getCardElement(inputValues);
+  cardsList.prepend(cardElement);
+  closeModal(postModal);
+}
 
-closeBtn.addEventListener("click", closeModal);
+postBtn.addEventListener("click", () => {
+  openModal(postModal);
+});
 
-modalSubmitBtn.addEventListener("submit", handleProfileFormSubmit);
+postModalCloseBtn.addEventListener("click", () => {
+  closeModal(postModal);
+});
+
+profileEditBtn.addEventListener("click", () => {
+  editModalNameInput.value = profileName.textContent;
+  editModalDescriptionInput.value = profileDescription.textContent;
+  openModal(editModal);
+});
+
+closeBtn.addEventListener("click", () => {
+  closeModal(editModal);
+});
+
+editFormElement.addEventListener(`submit`, handleEditFormSubmit);
+cardFormElement.addEventListener(`submit`, handleAddCardSubmit);
+
+initialCards.forEach(function (item) {
+  const cardElement = getCardElement(item);
+  cardsList.prepend(cardElement);
+});
+
