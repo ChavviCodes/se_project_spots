@@ -169,6 +169,7 @@
 
   .modal__close-btn_type_preview {
     top: -40px;
+    right: 0px;
   }
 
   .modal__caption {
