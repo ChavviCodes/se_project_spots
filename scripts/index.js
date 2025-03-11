@@ -23,6 +23,10 @@ const initialCards = [
     name: "Mountain house",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
   },
+  {
+    name: "Golden Gate Bridge",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
+  },
 ];
 
 console.log(initialCards);
@@ -51,6 +55,14 @@ const cardFormElement = postModal.querySelector(`.modal__form`);
 const cardTemplate = document.querySelector(`#card-template`);
 const cardsList = document.querySelector(`.cards__list`);
 
+const previewModal = document.querySelector(`#preview-modal`);
+const previewModalImageEl = previewModal.querySelector(`.modal__image`);
+const previewModalCaptionEl = previewModal.querySelector(`.modal__caption`);
+
+const previewModalCloseBtn = previewModal.querySelector(
+  `.modal__close-btn_type_preview`
+);
+
 function getCardElement(data) {
   const cardElement = cardTemplate.content
     .querySelector(`.card`)
@@ -59,7 +71,7 @@ function getCardElement(data) {
   const cardNameEl = cardElement.querySelector(`.card__title`);
   const cardImgEl = cardElement.querySelector(`.card__image`);
   const cardLikeBtn = cardElement.querySelector(`.card__like-button`);
-  const cardDeleteBtn = cardElement.querySelector(`card__delete-button`);
+  const cardDeleteBtn = cardElement.querySelector(`.card__delete-button`);
 
   cardImgEl.src = data.link;
   cardImgEl.alt = data.name;
@@ -69,10 +81,16 @@ function getCardElement(data) {
     cardLikeBtn.classList.toggle(`card__like-button_liked`);
   });
 
-  /* cardDeleteBtn.addEventListener(`click`, () => {
-    cardsList.remove(cardElement);
-  }) 
-    WIP add delete card functionality*/ 
+  cardImgEl.addEventListener(`click`, () => {
+    openModal(previewModal);
+    previewModalImageEl.src = data.link;
+    previewModalCaptionEl.textContent = data.name;
+    previewModalImageEl.alt = data.name;
+  });
+
+  cardDeleteBtn.addEventListener(`click`, () => {
+    cardElement.remove();
+  });
 
   return cardElement;
 }
@@ -122,6 +140,10 @@ closeBtn.addEventListener("click", () => {
   closeModal(editModal);
 });
 
+previewModalCloseBtn.addEventListener(`click`, () => {
+  closeModal(previewModal);
+});
+
 editFormElement.addEventListener(`submit`, handleEditFormSubmit);
 cardFormElement.addEventListener(`submit`, handleAddCardSubmit);
 
@@ -129,4 +151,3 @@ initialCards.forEach(function (item) {
   const cardElement = getCardElement(item);
   cardsList.prepend(cardElement);
 });
-
