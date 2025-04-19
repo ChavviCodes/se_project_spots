@@ -110,6 +110,12 @@
   color: rgba(33, 33, 33, 1);
 }
 
+.modal__error {
+  display: block;
+  color: #ff0000;
+  opacity: 70%;
+}
+
 .modal__submit-btn {
   width: 156px;
   padding: 18px 0;
