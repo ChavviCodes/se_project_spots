@@ -136,7 +136,7 @@ function handleAddCardSubmit(evt) {
   };
   const cardElement = getCardElement(inputValues);
   cardsList.prepend(cardElement);
-  document.getElementById(`add-card-form`).reset();
+  cardFormElement.reset();
   disableButton(cardSubmitBtn, settings);
   closeModal(postModal);
 }
