@@ -1,3 +1,26 @@
+import "./index.css";
+
+import logoSrc from "../images/logo.svg";
+import avatarSrc from "../images/avatar.jpg";
+import pencilSrc from "../images/pencil.svg";
+import plusIconSrc from "../images/PlusIcon.svg";
+
+const logoImage = document.getElementById("image-logo");
+logoImage.src = logoSrc;
+const avatarImage = document.getElementById("image-avatar");
+avatarImage.src = avatarSrc;
+const pencilImage = document.getElementById("image-pencil");
+pencilImage.src = pencilSrc;
+const plusIconImage = document.getElementById("image-plusIcon");
+plusIconImage.src = plusIconSrc;
+
+import {
+  enableValidation,
+  settings,
+  resetValidation,
+  disableButton,
+} from "../scripts/validations.js";
+
 const initialCards = [
   {
     name: "Val Thorens",
@@ -175,3 +198,5 @@ initialCards.forEach(function (item) {
   const cardElement = getCardElement(item);
   cardsList.prepend(cardElement);
 });
+
+enableValidation(settings);

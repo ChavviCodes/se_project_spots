@@ -12,33 +12,27 @@
       name="keywords"
       content="Spots, Spot, Social, Media, Images, Share, Moments"
     />
-    <link rel="stylesheet" href="./pages/index.css" />
-    <link rel="shortcut icon" href="favicon.ico" />
     <title>Spots</title>
   </head>
   <body>
     <div class="page">
       <header class="header">
-        <img src="./images/logo.svg" alt="Image of Logo" class="header__logo" />
+        <img id="image-logo" alt="Image of Logo" class="header__logo" />
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            src="./images/avatar.jpg"
-            alt="Bessie Coleman"
-            class="profile__avatar"
-          />
+          <img id="image-avatar" alt="Bessie Coleman" class="profile__avatar" />
           <div class="profile__column">
             <h1 class="profile__name">Bessie Coleman</h1>
             <p class="profile__description">Civil Aviator</p>
             <button type="button" class="profile__edit-button">
-              <img src="./images/pencil.svg" alt="Icon of Pencil" />Edit Profile
+              <img id="image-pencil" alt="Icon of Pencil" />Edit Profile
             </button>
           </div>
           <button type="button" class="profile__add-button">
             <img
               class="profile__add-button-image"
-              src="./images/PlusIcon.svg"
+              id="image-plusIcon"
               alt="Plus Icon"
             />New Post
           </button>
@@ -149,7 +143,5 @@
         </div>
       </div>
     </div>
-    <script src="./scripts/validations.js" defer></script>
-    <script src="./scripts/index.js" defer></script>
   </body>
 </html>
