@@ -20,39 +20,46 @@ import {
   resetValidation,
   disableButton,
 } from "../scripts/validations.js";
+import Api from "../scripts/Api.js";
 
-const initialCards = [
-  {
-    name: "Val Thorens",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
-  },
-  {
-    name: "Restaurant terrace",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
-  },
-  {
-    name: "An outdoor cafe",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
-  },
-  {
-    name: "A very long bridge, over the forest and through the trees",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
-  },
-  {
-    name: "Tunnel with morning light",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
-  },
-  {
-    name: "Mountain house",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
-  },
-  {
-    name: "Golden Gate Bridge",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
-  },
-];
+// const initialCards = [
+//   {
+//     name: "Val Thorens",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
+//   },
+//   {
+//     name: "Restaurant terrace",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
+//   },
+//   {
+//     name: "An outdoor cafe",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
+//   },
+//   {
+//     name: "A very long bridge, over the forest and through the trees",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
+//   },
+//   {
+//     name: "Tunnel with morning light",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
+//   },
+//   {
+//     name: "Mountain house",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
+//   },
+//   {
+//     name: "Golden Gate Bridge",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
+//   },
+// ];
 
-console.log(initialCards);
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "8c72e74b-5b4c-4a2a-8690-b5f6b335b44d",
+    "Content-Type": "application/json",
+  },
+});
 
 const editModal = document.querySelector(`#edit-modal`);
 const profileEditBtn = document.querySelector(`.profile__edit-button`);
@@ -118,6 +125,14 @@ function getCardElement(data) {
 
   return cardElement;
 }
+
+api.getInitialCards().then((cards) => {
+  console.log(cards);
+  cards.forEach(function (item) {
+    const cardElement = getCardElement(item);
+    cardsList.prepend(cardElement);
+  });
+});
 
 const overlayClickListener = (evt) => {
   if (evt.target.classList.contains("modal")) {
@@ -193,10 +208,5 @@ previewModalCloseBtn.addEventListener(`click`, () => {
 
 editFormElement.addEventListener(`submit`, handleEditFormSubmit);
 cardFormElement.addEventListener(`submit`, handleAddCardSubmit);
-
-initialCards.forEach(function (item) {
-  const cardElement = getCardElement(item);
-  cardsList.prepend(cardElement);
-});
 
 enableValidation(settings);
