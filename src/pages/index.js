@@ -121,6 +121,16 @@ function handleDeleteCard(cardElement, cardId) {
   openModal(deleteModal);
 }
 
+function handleLike(evt, id) {
+  const isLiked = evt.target.classList.contains(`card__like-button_liked`);
+  api
+    .handleLike(id, isLiked)
+    .then(() => {
+      evt.target.classList.toggle(`card__like-button_liked`);
+    })
+    .catch(console.error);
+}
+
 function getCardElement(data) {
   const cardElement = cardTemplate.content
     .querySelector(`.card`)
@@ -131,12 +141,18 @@ function getCardElement(data) {
   const cardLikeBtn = cardElement.querySelector(`.card__like-button`);
   const cardDeleteBtn = cardElement.querySelector(`.card__delete-button`);
 
+  console.log(data);
+
+  if (data.isLiked) {
+    cardLikeBtn.classList.add(`card__like-button_liked`);
+  }
+
   cardImgEl.src = data.link;
   cardImgEl.alt = data.name;
   cardNameEl.textContent = data.name;
 
-  cardLikeBtn.addEventListener(`click`, () => {
-    cardLikeBtn.classList.toggle(`card__like-button_liked`);
+  cardLikeBtn.addEventListener(`click`, (evt) => {
+    handleLike(evt, data._id);
   });
 
   cardImgEl.addEventListener(`click`, () => {
@@ -153,10 +169,6 @@ function getCardElement(data) {
 
   return cardElement;
 }
-
-api.getInitialCards().then((cards) => {
-  console.log(cards);
-});
 
 api
   .getAppInfo()
