@@ -5,6 +5,7 @@ import avatarSrc from "../images/avatar.jpg";
 import pencilSrc from "../images/pencil.svg";
 import plusIconSrc from "../images/PlusIcon.svg";
 import avatarPencilSrc from "../images/Pencil-icon-avtr.svg";
+import { setButtonText } from "../utils/helper.js";
 
 const logoImage = document.getElementById("image-logo");
 logoImage.src = logoSrc;
@@ -67,6 +68,7 @@ const api = new Api({
 const editModal = document.querySelector(`#edit-modal`);
 const profileEditBtn = document.querySelector(`.profile__edit-button`);
 const editModalCloseBtn = editModal.querySelector(`.modal__close-btn`);
+const editModalSubmitBtn = editModal.querySelector(`.modal__submit-btn`);
 
 const profileName = document.querySelector(`.profile__name`);
 const editModalNameInput = editModal.querySelector(`#profile-name-input`);
@@ -211,6 +213,8 @@ function closeModal(modal) {
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
+  const submitBtn = evt.submitter;
+  setButtonText(submitBtn, true);
   api
     .editUserInfo({
       name: editModalNameInput.value,
@@ -221,11 +225,16 @@ function handleEditFormSubmit(evt) {
       profileDescription.textContent = data.about;
       closeModal(editModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(submitBtn, false);
+    });
 }
 
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
+  const submitBtn = evt.submitter;
+  setButtonText(submitBtn, true);
   api
     .addPost({
       name: postModalNameInput.value,
@@ -239,22 +248,32 @@ function handleAddCardSubmit(evt) {
       disableButton(cardSubmitBtn, settings);
       closeModal(postModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(submitBtn, false);
+    });
 }
 
 function handleDeleteCardSubmit(evt) {
   evt.preventDefault();
+  const submitBtn = evt.submitter;
+  setButtonText(submitBtn, true, "Deleting...", "Delete");
   api
     .deletePost(selectedCardID)
     .then(() => {
       selectedCard.remove();
       closeModal(deleteModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(submitBtn, false, "Deleting...", "Delete");
+    });
 }
 
 function handleAvatarFormSubmit(evt) {
   evt.preventDefault();
+  const submitBtn = evt.submitter;
+  setButtonText(submitBtn, true);
   console.log(avatarInput.value);
   api
     .editAvatarInfo(avatarInput.value)
@@ -262,7 +281,10 @@ function handleAvatarFormSubmit(evt) {
       avatarImage.src = data.avatar;
       closeModal(avatarModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(submitBtn, false);
+    });
 }
 
 postBtn.addEventListener("click", () => {
