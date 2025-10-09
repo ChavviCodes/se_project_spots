@@ -93,7 +93,7 @@ const avatarInput = avatarModal.querySelector(`#profile-avatar-input`);
 const deleteModal = document.querySelector(`#delete-modal`);
 const deleteForm = deleteModal.querySelector(`#delete-form`);
 const deleteModalCloseBtn = deleteModal.querySelector(
-  `.delete-modal__close-btn`
+  `.delete-modal__cancel-btn`
 );
 let selectedCard;
 let selectedCardID;
@@ -189,7 +189,7 @@ api
 
 const overlayClickListener = (evt) => {
   if (evt.target.classList.contains("modal")) {
-    closeModal(document.querySelector(".modal_opened"));
+    closeModal(evt.target);
   }
 };
 
